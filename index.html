@@ -5,615 +5,385 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mohamed Magdy — Software QC Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --indigo: #6366f1;
-      --indigo-light: #a5b4fc;
-      --pink: #f472b6;
-      --cyan: #22d3ee;
-      --amber: #fbbf24;
-      --bg: #0f0f23;
-      --bg2: #181830;
-      --bg3: #1e1e3a;
-      --text: #f1f5f9;
-      --muted: #b0bdd0;
-      --border: rgba(139,143,255,0.22);
-      --glass: rgba(24,24,48,0.7);
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      background:var(--bg);
-      color:var(--text);
-      font-family:'DM Sans',sans-serif;
-      overflow-x:hidden;
-      cursor:none;
-    }
-    body::before{
-      content:'';
-      position:fixed;inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events:none;z-index:1000;
-      opacity:0.35;
-    }
-    ::-webkit-scrollbar{width:6px}
-    ::-webkit-scrollbar-track{background:var(--bg)}
-    ::-webkit-scrollbar-thumb{background:linear-gradient(var(--indigo),var(--pink));border-radius:3px}
-
-    #cursor-dot{
-      position:fixed;width:8px;height:8px;
-      background:var(--cyan);border-radius:50%;
-      pointer-events:none;z-index:9999;
-      transform:translate(-50%,-50%);
-      box-shadow:0 0 12px var(--cyan),0 0 24px var(--cyan);
-      transition:transform 0.1s;
-    }
-    #cursor-ring{
-      position:fixed;width:36px;height:36px;
-      border:1.5px solid rgba(99,102,241,0.7);
-      border-radius:50%;pointer-events:none;z-index:9998;
-      transform:translate(-50%,-50%);
-      transition:transform 0.18s ease,width 0.2s,height 0.2s,border-color 0.2s;
-    }
-    body:has(a:hover) #cursor-ring,
-    body:has(button:hover) #cursor-ring{
-      width:56px;height:56px;
-      border-color:var(--pink);
+      --white: #ffffff;
+      --bg: #f7f5f2;
+      --bg2: #f0ede8;
+      --border: #e4e0d9;
+      --border-dark: #ccc8c0;
+      --text: #1c1917;
+      --text-2: #44403c;
+      --text-3: #78716c;
+      --text-4: #a8a29e;
+      --tag-bg: #edeae5;
+      --tag-text: #57534e;
+      --green: #166534;
+      --green-bg: #dcfce7;
+      --r: 8px;
     }
 
-    #loader{
-      position:fixed;inset:0;
-      background:var(--bg);
-      z-index:99999;
-      display:flex;flex-direction:column;
-      align-items:center;justify-content:center;
-      transition:opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #loader.hidden{opacity:0;visibility:hidden}
-    .loader-initials{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(60px,12vw,110px);
-      font-weight:900;
-      background:linear-gradient(135deg,var(--indigo-light),var(--pink),var(--cyan),var(--amber));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      background-clip:text;background-size:300%;
-      animation:shimmer 2s linear infinite;
-      letter-spacing:-2px;
-    }
-    .loader-bar-wrap{
-      width:200px;height:3px;
-      background:rgba(255,255,255,0.08);
-      border-radius:2px;margin-top:32px;overflow:hidden;
-    }
-    .loader-bar{
-      height:100%;width:0;
-      background:linear-gradient(90deg,var(--indigo),var(--pink),var(--cyan));
-      border-radius:2px;
-      animation:loadBar 2s ease forwards;
-    }
-    @keyframes loadBar{to{width:100%}}
-    @keyframes shimmer{
-      0%{background-position:0% 50%}
-      100%{background-position:300% 50%}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    #particle-canvas{
-      position:fixed;inset:0;
-      pointer-events:none;z-index:0;
-      opacity:0.55;
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-dark); border-radius: 2px; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(20px, 5vw, 80px);
+      background: rgba(247,245,242,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Lora', serif; font-weight: 600; font-size: 1rem;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 500; color: var(--text-3);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    @media(max-width: 640px) { .nav-links { display: none; } }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 80px); }
+    section { padding: 80px 0; }
+    section:nth-child(even) { background: var(--white); }
+
+    .sec-label {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-4); margin-bottom: 6px;
+    }
+    .sec-title {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(22px, 3vw, 34px); color: var(--text);
+      margin-bottom: 48px; letter-spacing: -0.3px;
+    }
+    .sec-title em { font-style: italic; font-weight: 400; }
+
+    .reveal {
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: 56px;
+      background: var(--white);
+    }
+    .hero-inner {
+      width: 100%; max-width: 1100px; margin: 0 auto;
+      padding: 60px clamp(20px,5vw,80px);
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 60px; align-items: center;
+    }
+    @media(max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-card-col { display: none; }
     }
 
-    nav{
-      position:fixed;top:0;left:0;right:0;
-      z-index:500;
-      padding:0 clamp(20px,5vw,80px);
-      height:68px;display:flex;align-items:center;justify-content:space-between;
-      gap:24px;
-      background:rgba(6,6,16,0.72);
-      backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border);
-      transform:translateY(-100%);
-      animation:slideDown 0.7s 2.2s ease forwards;
+    .avail {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--green-bg); color: var(--green);
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 5px 12px; border-radius: 999px;
+      margin-bottom: 24px;
     }
-    @keyframes slideDown{to{transform:translateY(0)}}
-    .nav-logo{
-      font-family:'Playfair Display',serif;font-weight:800;font-size:1.25rem;
-      background:linear-gradient(90deg,var(--indigo-light),var(--cyan));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      text-decoration:none;letter-spacing:0px;
+    .avail-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); animation: blink 2s ease infinite;
     }
-    .nav-links{display:flex;gap:clamp(24px,4vw,48px);list-style:none;margin-left:auto}
-    .nav-links a{
-      color:var(--muted);text-decoration:none;
-      font-size:0.85rem;font-weight:500;letter-spacing:0.05em;
-      position:relative;padding-bottom:4px;white-space:nowrap;
-      transition:color 0.2s;
-    }
-    .nav-links a::after{
-      content:'';position:absolute;bottom:0;left:0;right:100%;
-      height:1.5px;background:linear-gradient(90deg,var(--indigo-light),var(--cyan));
-      transition:right 0.3s ease;
-    }
-    .nav-links a:hover{color:var(--text)}
-    .nav-links a:hover::after{right:0}
-    @media(max-width:640px){.nav-links{display:none}}
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    section{position:relative;z-index:2}
+    .hero-name {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(42px, 6vw, 76px);
+      line-height: 1.05; letter-spacing: -1.5px;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .hero-name em { font-style: italic; font-weight: 400; color: var(--text-3); }
+    .hero-desc {
+      font-size: 0.975rem; color: var(--text-3); line-height: 1.7;
+      max-width: 480px; margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 11px 24px;
+      border-radius: var(--r); font-size: 0.85rem; font-weight: 500;
+      text-decoration: none; transition: all 0.15s ease;
+    }
+    .btn-dark { background: var(--text); color: var(--white); }
+    .btn-dark:hover { background: var(--text-2); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text-2); border: 1px solid var(--border-dark); }
+    .btn-outline:hover { border-color: var(--text-3); background: var(--bg); transform: translateY(-1px); }
 
-    #hero{
-      min-height:100vh;
-      display:grid;grid-template-columns:1fr 1fr;
-      align-items:center;
-      padding:160px clamp(32px,7vw,120px) 100px;
-      gap:80px;
-      overflow:visible;
+    .hcard {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
     }
-    @media(max-width:900px){#hero{grid-template-columns:1fr;padding:140px 32px 80px;gap:60px}}
-    .hero-left{max-width:640px;overflow:visible}
-    .availability-tag{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(6,182,212,0.1);
-      border:1px solid rgba(6,182,212,0.3);
-      color:var(--cyan);
-      padding:8px 18px;border-radius:999px;
-      font-size:0.78rem;font-weight:600;letter-spacing:0.06em;
-      text-transform:uppercase;margin-bottom:36px;
+    .hcard-top { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+    .hcard-avatar {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--text); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Lora', serif; font-weight: 600; font-size: 1.1rem; flex-shrink: 0;
     }
-    .availability-dot{
-      width:7px;height:7px;border-radius:50%;
-      background:var(--cyan);
-      animation:pulse 1.5s ease infinite;
-    }
-    @keyframes pulse{
-      0%,100%{transform:scale(1);opacity:1}
-      50%{transform:scale(1.4);opacity:0.6}
+    .hcard-name { font-weight: 600; font-size: 0.95rem; color: var(--text); }
+    .hcard-role { font-size: 0.78rem; color: var(--text-3); margin-top: 2px; }
+    .hcard-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+    .hcard-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+    .hstat { text-align: center; background: var(--white); border-radius: 8px; padding: 12px 8px; }
+    .hstat-num { font-family: 'Lora', serif; font-weight: 600; font-size: 1.4rem; color: var(--text); }
+    .hstat-label { font-size: 0.68rem; color: var(--text-4); margin-top: 2px; }
+    .hcard-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .htag {
+      font-size: 0.7rem; font-weight: 500; padding: 3px 9px; border-radius: 5px;
+      background: var(--white); color: var(--text-3); border: 1px solid var(--border);
     }
 
-    /* Hero name — Playfair Display, no overflow clipping */
-    .hero-name{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(52px,7vw,96px);
-      font-weight:900;
-      line-height:1.0;
-      letter-spacing:-1px;
-      background:linear-gradient(135deg,#fff 0%,var(--indigo-light) 35%,var(--pink) 60%,var(--cyan) 85%,var(--amber) 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-      background-size:300%;
-      animation:shimmer 4s linear infinite;
-      margin-bottom:20px;
-      overflow:visible;
-      padding-right:8px;
+    /* MARQUEE */
+    .marquee-wrap {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0; overflow: hidden;
     }
-    .hero-title{
-      font-size:clamp(1rem,1.8vw,1.25rem);
-      color:var(--muted);font-weight:400;
-      margin-bottom:44px;
-      letter-spacing:0.01em;
-      line-height:1.5;
+    .marquee-track {
+      display: flex; gap: 40px; width: max-content;
+      animation: scroll 30s linear infinite;
     }
-    .hero-title span{color:var(--indigo-light);font-weight:600}
-    .hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
-    .btn-primary{
-      padding:13px 28px;border-radius:10px;
-      background:linear-gradient(135deg,var(--indigo),var(--pink));
-      color:#fff;font-weight:600;font-size:0.9rem;
-      border:none;cursor:none;text-decoration:none;
-      position:relative;overflow:hidden;
-      transition:transform 0.2s,box-shadow 0.2s;
-      letter-spacing:0.02em;
-    }
-    .btn-primary::after{
-      content:'';position:absolute;inset:0;
-      background:linear-gradient(135deg,var(--pink),var(--cyan));
-      opacity:0;transition:opacity 0.3s;
-    }
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(79,70,229,0.45)}
-    .btn-primary:hover::after{opacity:1}
-    .btn-primary span{position:relative;z-index:1}
-    .btn-secondary{
-      padding:13px 28px;border-radius:10px;
-      border:1px solid var(--border);
-      color:var(--text);font-weight:500;font-size:0.9rem;
-      cursor:none;text-decoration:none;
-      background:transparent;
-      transition:border-color 0.2s,background 0.2s,transform 0.2s;
-    }
-    .btn-secondary:hover{
-      border-color:var(--indigo-light);
-      background:rgba(79,70,229,0.08);
-      transform:translateY(-2px);
-    }
-    .hero-right{
-      display:flex;justify-content:center;align-items:center;
-      position:relative;
-      animation:fadeUp 0.8s 2.9s ease both;
-    }
-    .card-scene{perspective:800px;position:relative;}
-    .floating-card{
-      width:320px;
-      background:linear-gradient(135deg,rgba(79,70,229,0.15),rgba(236,72,153,0.1));
-      border:1px solid var(--border);
-      border-radius:24px;
-      padding:40px 36px;
-      backdrop-filter:blur(20px);
-      position:relative;z-index:2;
-      animation:float3d 6s ease-in-out infinite;
-      box-shadow:0 30px 80px rgba(79,70,229,0.2),0 0 0 1px rgba(255,255,255,0.04);
-    }
-    @keyframes float3d{
-      0%,100%{transform:rotateX(8deg) rotateY(-8deg) translateY(0)}
-      25%{transform:rotateX(-4deg) rotateY(8deg) translateY(-12px)}
-      50%{transform:rotateX(8deg) rotateY(-8deg) translateY(-6px)}
-      75%{transform:rotateX(-4deg) rotateY(8deg) translateY(-14px)}
-    }
-    .card-avatar{
-      width:80px;height:80px;border-radius:20px;
-      background:linear-gradient(135deg,var(--indigo),var(--pink));
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;
-      color:#fff;margin-bottom:20px;
-      box-shadow:0 8px 24px rgba(79,70,229,0.4);
-    }
-    .card-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:4px}
-    .card-role{color:var(--indigo-light);font-size:0.82rem;font-weight:500;margin-bottom:28px}
-    .card-stats{display:flex;gap:16px}
-    .stat{flex:1;text-align:center}
-    .stat-num{
-      font-family:'Playfair Display',serif;font-weight:900;font-size:1.5rem;
-      background:linear-gradient(135deg,var(--cyan),var(--indigo-light));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-    }
-    .stat-label{font-size:0.7rem;color:var(--muted);font-weight:500;margin-top:2px}
-    .spin-ring{
-      position:absolute;inset:-28px;
-      border:2px dashed rgba(99,102,241,0.3);
-      border-radius:50%;
-      animation:spinRing 12s linear infinite;
-    }
-    @keyframes spinRing{to{transform:rotate(360deg)}}
-    .spin-ring-inner{
-      position:absolute;inset:-14px;
-      border:1px dashed rgba(236,72,153,0.2);
-      border-radius:50%;
-      animation:spinRing 8s linear infinite reverse;
-    }
-    .card-glow{
-      position:absolute;
-      width:200px;height:200px;
-      background:radial-gradient(circle,rgba(79,70,229,0.35) 0%,transparent 70%);
-      top:50%;left:50%;transform:translate(-50%,-50%);
-      z-index:0;filter:blur(30px);
-      animation:glowPulse 4s ease-in-out infinite;
-    }
-    @keyframes glowPulse{
-      0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.7}
-      50%{transform:translate(-50%,-50%) scale(1.3);opacity:1}
-    }
-    @keyframes fadeUp{
-      from{opacity:0;transform:translateY(30px)}
-      to{opacity:1;transform:translateY(0)}
+    @keyframes scroll { to { transform: translateX(-50%); } }
+    .mq { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-4); white-space: nowrap; }
+    .mq-dot { color: var(--border-dark); font-size: 0.5rem; }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+    .skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+    @media(max-width: 700px) { .skills-cols { grid-template-columns: 1fr; } }
+
+    .skill-row { margin-bottom: 18px; }
+    .skill-top { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .skill-name { font-size: 0.85rem; font-weight: 500; color: var(--text-2); }
+    .skill-level { font-size: 0.75rem; color: var(--text-4); }
+    .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-fill {
+      height: 100%; width: 0; border-radius: 2px; background: var(--text);
+      transition: width 1.2s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    .section-wrap{padding:120px clamp(24px,7vw,120px);max-width:1280px;margin:0 auto;}
-    .section-badge{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;
-      color:var(--indigo-light);margin-bottom:12px;
+    .tools-section { margin-top: 56px; }
+    .tools-title { font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-bottom: 20px; }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
     }
-    .section-badge::before{
-      content:'';display:block;width:24px;height:2px;
-      background:linear-gradient(90deg,var(--indigo),var(--pink));
-      border-radius:1px;
+    .tool-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 16px 18px;
+      transition: border-color 0.15s;
     }
-    .section-title{
-      font-family:'Playfair Display',serif;font-weight:800;
-      font-size:clamp(28px,4vw,52px);letter-spacing:-0.5px;
-      color:var(--text);margin-bottom:64px;line-height:1.1;
+    .tool-card:hover { border-color: var(--border-dark); }
+    .tool-card-label {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-4); margin-bottom: 10px;
     }
-    .section-title span{
-      background:linear-gradient(135deg,var(--indigo-light),var(--pink));
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-    }
-
-    .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.7s ease,transform 0.7s ease}
-    .reveal.from-left{transform:translateX(-40px)}
-    .reveal.from-right{transform:translateX(40px)}
-    .reveal.visible{opacity:1;transform:none}
-
-    #skills{background:var(--bg2)}
-    .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-    @media(max-width:768px){.skills-grid{grid-template-columns:1fr}}
-    .skill-item{margin-bottom:22px}
-    .skill-header{display:flex;justify-content:space-between;margin-bottom:8px}
-    .skill-name{font-weight:500;font-size:0.9rem;color:var(--text)}
-    .skill-pct{font-size:0.8rem;color:var(--indigo-light);font-weight:600}
-    .skill-track{height:7px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;}
-    .skill-fill{
-      height:100%;border-radius:4px;
-      background:linear-gradient(90deg,var(--indigo),var(--pink),var(--cyan));
-      width:0;transition:width 1.2s cubic-bezier(0.22,1,0.36,1);
-      position:relative;overflow:hidden;
-    }
-    .skill-fill::after{
-      content:'';position:absolute;top:0;left:-100%;
-      width:60%;height:100%;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);
-      animation:shimmerBar 1s 1.5s ease forwards;
-    }
-    @keyframes shimmerBar{to{left:200%}}
-
-    .chips-wrap{margin-top:72px}
-    .chips-section{margin-bottom:32px}
-    .chips-section-label{
-      font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-      color:var(--indigo-light);margin-bottom:10px;
-      display:flex;align-items:center;gap:8px;
-    }
-    .chips-section-label::after{
-      content:'';flex:1;height:1px;
-      background:linear-gradient(90deg,rgba(99,102,241,0.3),transparent);
-    }
-    .chips-title{
-      font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;
-      margin-bottom:24px;color:var(--text);
-    }
-    .chips{display:flex;flex-wrap:wrap;gap:12px}
-    .chip{
-      padding:9px 20px;border-radius:999px;
-      border:1px solid var(--border);
-      font-size:0.78rem;font-weight:500;color:var(--muted);
-      background:rgba(13,13,31,0.6);
-      transition:transform 0.25s,color 0.25s,border-color 0.25s,box-shadow 0.25s;
-      cursor:default;
-    }
-    .chip:hover{
-      transform:translateY(-4px);
-      color:var(--cyan);
-      border-color:rgba(6,182,212,0.5);
-      box-shadow:0 8px 20px rgba(6,182,212,0.15);
+    .tool-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tool-pill {
+      font-size: 0.74rem; font-weight: 400; color: var(--text-2);
+      background: var(--tag-bg); padding: 3px 9px; border-radius: 4px;
     }
 
-    #experience{background:var(--bg)}
-    .timeline{position:relative;padding-left:36px}
-    .timeline::before{
-      content:'';position:absolute;left:8px;top:8px;bottom:8px;
-      width:2px;
-      background:linear-gradient(180deg,var(--indigo),var(--pink),var(--cyan),transparent);
-      border-radius:1px;
+    /* EXPERIENCE */
+    #experience { background: var(--white); }
+    .timeline { display: flex; flex-direction: column; gap: 20px; }
+    .job {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px 30px;
+      transition: border-color 0.2s;
     }
-    .timeline-item{position:relative;margin-bottom:56px;}
-    .timeline-dot{
-      position:absolute;left:-32px;top:20px;
-      width:12px;height:12px;border-radius:50%;
-      background:linear-gradient(135deg,var(--indigo),var(--pink));
-      border:2px solid var(--bg);
-      box-shadow:0 0 12px rgba(79,70,229,0.6);
+    .job:hover { border-color: var(--border-dark); }
+    .job-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 3px; }
+    .job-title { font-family: 'Lora', serif; font-weight: 600; font-size: 1rem; color: var(--text); }
+    .job-date {
+      font-size: 0.72rem; color: var(--text-4); font-weight: 500;
+      background: var(--white); border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 4px; white-space: nowrap;
     }
-    .job-card{
-      background:var(--bg3);border:1px solid var(--border);
-      border-radius:20px;padding:36px;
-      transition:transform 0.3s ease,box-shadow 0.3s ease,border-color 0.3s;
+    .job-co { font-size: 0.85rem; font-weight: 600; color: var(--text-2); margin-bottom: 2px; }
+    .job-type { font-size: 0.75rem; color: var(--text-4); margin-bottom: 14px; }
+    .job-bullets { list-style: none; margin-bottom: 16px; }
+    .job-bullets li {
+      font-size: 0.85rem; color: var(--text-3); line-height: 1.65;
+      padding-left: 14px; position: relative; margin-bottom: 4px;
     }
-    .job-card:hover{
-      transform:translateX(8px);
-      box-shadow:0 12px 40px rgba(79,70,229,0.18);
-      border-color:rgba(99,102,241,0.4);
-    }
-    .job-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-    .job-title{font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;color:var(--text);}
-    .job-date{
-      font-size:0.75rem;color:var(--muted);font-weight:500;
-      background:rgba(99,102,241,0.1);padding:4px 10px;border-radius:6px;
-      border:1px solid var(--border);white-space:nowrap;
-    }
-    .job-company{color:var(--indigo-light);font-weight:600;font-size:0.88rem;margin-bottom:4px}
-    .job-type{color:var(--muted);font-size:0.78rem;margin-bottom:16px}
-    .job-desc{font-size:0.87rem;color:var(--muted);line-height:1.75;margin-bottom:16px}
-    .job-desc li{margin-bottom:6px;padding-left:4px}
-    .job-desc ul{list-style:none}
-    .job-desc li::before{content:'→ ';color:var(--indigo-light)}
-    .job-tags{display:flex;flex-wrap:wrap;gap:8px}
-    .tag{
-      padding:4px 10px;border-radius:6px;font-size:0.72rem;font-weight:600;
-      background:rgba(79,70,229,0.12);color:var(--indigo-light);
-      border:1px solid rgba(79,70,229,0.2);letter-spacing:0.02em;
-    }
-    .tag.pink{background:rgba(236,72,153,0.1);color:var(--pink);border-color:rgba(236,72,153,0.2)}
-    .tag.cyan{background:rgba(6,182,212,0.1);color:var(--cyan);border-color:rgba(6,182,212,0.2)}
-    .tag.amber{background:rgba(245,158,11,0.1);color:var(--amber);border-color:rgba(245,158,11,0.2)}
-
-    .marquee-section{
-      background:var(--bg2);padding:28px 0;overflow:hidden;
-      border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-    }
-    .marquee-track{
-      display:flex;gap:48px;width:max-content;
-      animation:marquee 22s linear infinite;
-    }
-    @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-    .marquee-item{
-      font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.9rem;
-      color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;
-    }
-    .marquee-sep{color:var(--indigo-light)}
-
-    #projects{background:var(--bg2)}
-    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-    @media(max-width:1000px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:640px){.projects-grid{grid-template-columns:1fr}}
-    .project-card{
-      background:var(--bg3);border:1px solid var(--border);
-      border-radius:20px;padding:36px;
-      position:relative;overflow:hidden;
-      transition:transform 0.3s ease,box-shadow 0.3s ease;
-    }
-    .project-card::before{
-      content:'';
-      position:absolute;top:0;left:0;right:0;height:3px;
-      background:linear-gradient(90deg,var(--indigo),var(--pink),var(--cyan));
-      transform:scaleX(0);transform-origin:left;
-      transition:transform 0.35s ease;
-    }
-    .project-card:hover::before{transform:scaleX(1)}
-    .project-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(79,70,229,0.2);}
-    .project-emoji{font-size:2rem;margin-bottom:16px;display:block}
-    .project-name{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:8px}
-    .project-desc{font-size:0.83rem;color:var(--muted);line-height:1.65;margin-bottom:16px}
-    .project-tags{display:flex;flex-wrap:wrap;gap:6px}
-    .project-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-    .meta-pill{font-size:0.72rem;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:0.02em;}
-    .meta-pill.type{background:rgba(79,70,229,0.15);color:var(--indigo-light);border:1px solid rgba(79,70,229,0.3);}
-    .meta-pill.platform{background:rgba(236,72,153,0.12);color:#f472b6;border:1px solid rgba(236,72,153,0.25);}
-    a.project-card{text-decoration:none;display:block;cursor:pointer}
-    a.project-card .project-name::after{content:' ↗';font-size:0.75rem;opacity:0.5;transition:opacity 0.2s;}
-    a.project-card:hover .project-name::after{opacity:1}
-
-    .projects-section-label{
-      display:inline-flex;align-items:center;gap:14px;
-      background:linear-gradient(135deg,rgba(79,70,229,0.12),rgba(236,72,153,0.08));
-      border:1px solid var(--border);border-radius:14px;
-      padding:18px 28px;margin-bottom:28px;width:100%;
-    }
-    .projects-section-icon{font-size:1.8rem}
-    .projects-section-title{font-family:'Playfair Display',serif;font-weight:700;color:var(--text);font-size:1.05rem}
-    .projects-section-sub{font-size:0.75rem;color:var(--muted);margin-top:2px}
-
-    #education{background:var(--bg)}
-    .edu-lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
-    @media(max-width:768px){.edu-lang-grid{grid-template-columns:1fr}}
-    .edu-card{
-      background:var(--bg3);border:1px solid var(--border);
-      border-radius:20px;padding:40px;
-      transition:transform 0.3s,box-shadow 0.3s;
-      margin-bottom:20px;
-    }
-    .edu-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(79,70,229,0.15)}
-    .edu-icon{
-      width:52px;height:52px;border-radius:14px;
-      background:linear-gradient(135deg,var(--indigo),var(--pink));
-      display:flex;align-items:center;justify-content:center;
-      font-size:1.4rem;margin-bottom:20px;
-    }
-    .edu-degree{font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;color:var(--text);margin-bottom:4px}
-    .edu-institution{color:var(--indigo-light);font-size:0.85rem;font-weight:500;margin-bottom:6px}
-    .edu-detail{color:var(--muted);font-size:0.8rem;line-height:1.7}
-    .edu-gpa{
-      display:inline-block;margin-top:12px;
-      background:rgba(79,70,229,0.12);color:var(--indigo-light);
-      padding:4px 12px;border-radius:6px;font-size:0.78rem;font-weight:600;
-      border:1px solid rgba(79,70,241,0.2);
+    .job-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--text-4); }
+    .job-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .jtag {
+      font-size: 0.7rem; font-weight: 500; padding: 3px 9px; border-radius: 4px;
+      background: var(--tag-bg); color: var(--tag-text);
     }
 
-    /* Certifications */
-    .certs-wrap{display:flex;flex-direction:column;gap:12px;}
-    .cert-card{
-      display:flex;align-items:center;gap:14px;
-      background:linear-gradient(135deg,rgba(79,70,229,0.12),rgba(236,72,153,0.08));
-      border:1px solid var(--border);border-radius:14px;
-      padding:20px 28px;
-      text-decoration:none;
-      transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;
+    /* PROJECTS */
+    #projects { background: var(--bg); }
+    .proj-group-title {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-4);
+      margin-bottom: 16px; margin-top: 40px;
+      display: flex; align-items: center; gap: 10px;
     }
-    .cert-card:hover{
-      transform:translateX(6px);
-      box-shadow:0 8px 28px rgba(79,70,229,0.2);
-      border-color:rgba(99,102,241,0.5);
-    }
-    .cert-icon{font-size:1.6rem;flex-shrink:0;}
-    .cert-name{font-family:'Playfair Display',serif;font-weight:700;color:var(--text);font-size:0.95rem}
-    .cert-id{font-size:0.75rem;color:var(--muted);margin-top:2px}
+    .proj-group-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .proj-group-title:first-of-type { margin-top: 0; }
 
-    .lang-badges{display:flex;flex-direction:column;gap:14px}
-    .lang-badge{
-      display:flex;align-items:center;gap:16px;
-      background:var(--bg3);border:1px solid var(--border);
-      border-radius:12px;padding:16px 20px;
-      transition:transform 0.3s,border-color 0.3s;
-    }
-    .lang-badge:hover{transform:translateX(6px);border-color:rgba(99,102,241,0.4)}
-    .lang-flag{display:flex;align-items:center;flex-shrink:0}
-    .lang-flag img{display:block;width:30px;height:22px;border-radius:3px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
-    .lang-name{font-family:'Playfair Display',serif;font-weight:700;color:var(--text);font-size:0.95rem}
-    .lang-level{
-      margin-left:auto;padding:4px 12px;border-radius:6px;
-      font-size:0.72rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;
-    }
-    .lang-native{background:rgba(6,182,212,0.12);color:var(--cyan);border:1px solid rgba(6,182,212,0.25)}
-    .lang-intermediate{background:rgba(245,158,11,0.12);color:var(--amber);border:1px solid rgba(245,158,11,0.25)}
+    .proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    @media(max-width: 900px) { .proj-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width: 560px) { .proj-grid { grid-template-columns: 1fr; } }
 
-    #contact{background:var(--bg2)}
-    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-    @media(max-width:768px){.contact-grid{grid-template-columns:1fr}}
-    .contact-card{
-      display:flex;align-items:center;gap:20px;
-      background:var(--bg3);border:1px solid var(--border);
-      border-radius:14px;padding:20px 24px;margin-bottom:16px;
-      transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;
-      text-decoration:none;
+    .pcard {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 22px;
+      text-decoration: none; display: block;
+      transition: border-color 0.15s, transform 0.15s;
     }
-    .contact-card:hover{
-      transform:translateX(8px);
-      box-shadow:0 8px 32px rgba(79,70,229,0.15);
-      border-color:rgba(99,102,241,0.4);
-    }
-    .contact-icon{
-      width:46px;height:46px;min-width:46px;border-radius:12px;flex-shrink:0;
-      display:flex;align-items:center;justify-content:center;font-size:1.15rem;
-    }
-    .contact-icon.blue{background:linear-gradient(135deg,var(--indigo),var(--indigo-light))}
-    .contact-icon.pink{background:linear-gradient(135deg,var(--pink),#f472b6)}
-    .contact-icon.cyan{background:linear-gradient(135deg,var(--cyan),#67e8f9)}
-    .contact-icon.amber{background:linear-gradient(135deg,var(--amber),#fcd34d)}
-    .contact-label{font-size:0.72rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.06em}
-    .contact-value{font-size:0.9rem;color:var(--text);font-weight:500}
-    .contact-avatar-wrap{
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      position:relative;height:280px;
-    }
-    .contact-avatar{
-      width:100px;height:100px;border-radius:50%;
-      background:linear-gradient(135deg,var(--indigo),var(--pink));
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Playfair Display',serif;font-weight:900;font-size:2rem;color:#fff;
-      position:relative;z-index:2;
-      box-shadow:0 0 30px rgba(79,70,229,0.4);
-    }
-    .ripple{
-      position:absolute;border-radius:50%;
-      border-style:solid;border-color:rgba(79,70,229,0.25);
-      animation:rippleAnim 3s ease-out infinite;
-    }
-    .ripple:nth-child(1){width:140px;height:140px;border-width:1px;animation-delay:0s}
-    .ripple:nth-child(2){width:190px;height:190px;border-width:1px;animation-delay:0.8s}
-    .ripple:nth-child(3){width:240px;height:240px;border-width:1px;animation-delay:1.6s}
-    @keyframes rippleAnim{
-      0%{transform:scale(0.7);opacity:0.8}
-      100%{transform:scale(1.1);opacity:0}
+    .pcard:hover { border-color: var(--border-dark); transform: translateY(-2px); }
+    .pcard-icon { font-size: 1.4rem; margin-bottom: 12px; display: block; }
+    .pcard-title { font-weight: 600; font-size: 0.875rem; color: var(--text); margin-bottom: 4px; }
+    a.pcard .pcard-title::after { content: ' ↗'; font-size: 0.68rem; color: var(--text-4); }
+    .pcard-meta { margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
+    .pmeta { font-size: 0.67rem; font-weight: 500; padding: 2px 7px; border-radius: 3px; }
+    .pmeta-type { background: #f0f9ff; color: #0369a1; }
+    .pmeta-platform { background: #fdf4ff; color: #7e22ce; }
+    .pcard-desc { font-size: 0.78rem; color: var(--text-3); line-height: 1.6; margin-bottom: 12px; }
+    .pcard-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .ptag {
+      font-size: 0.67rem; font-weight: 500; padding: 2px 7px; border-radius: 3px;
+      background: var(--tag-bg); color: var(--tag-text);
     }
 
-    footer{
-      text-align:center;padding:36px 20px;
-      border-top:1px solid var(--border);
-      color:var(--muted);font-size:0.82rem;
-      position:relative;z-index:2;
-      background:var(--bg);
+    /* EDUCATION */
+    #education { background: var(--white); }
+    .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    @media(max-width: 700px) { .edu-grid { grid-template-columns: 1fr; } }
+
+    .edu-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px; margin-bottom: 16px;
+      transition: border-color 0.15s;
     }
-    footer span{color:var(--indigo-light)}
+    .edu-card:hover { border-color: var(--border-dark); }
+    .edu-icon { font-size: 1.3rem; margin-bottom: 14px; display: block; }
+    .edu-degree { font-family: 'Lora', serif; font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 3px; }
+    .edu-inst { font-size: 0.82rem; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+    .edu-detail { font-size: 0.78rem; color: var(--text-3); line-height: 1.7; }
+    .edu-badge {
+      display: inline-block; margin-top: 10px; font-size: 0.72rem; font-weight: 500;
+      padding: 3px 10px; border-radius: 4px;
+      background: var(--white); border: 1px solid var(--border); color: var(--text-4);
+    }
+
+    .sub-heading { font-family: 'Lora', serif; font-weight: 600; font-size: 0.95rem; color: var(--text); margin-bottom: 14px; margin-top: 0; }
+    .certs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .cert {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 18px; text-decoration: none;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .cert:hover { border-color: var(--border-dark); transform: translateX(3px); }
+    .cert-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .cert-name { font-size: 0.83rem; font-weight: 500; color: var(--text); }
+    .cert-sub { font-size: 0.72rem; color: var(--text-4); margin-top: 1px; }
+
+    .langs { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+    .lang {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 16px;
+    }
+    .lang-flag img { width: 26px; height: 18px; border-radius: 2px; object-fit: cover; }
+    .lang-name { font-size: 0.85rem; font-weight: 500; color: var(--text); flex: 1; }
+    .lang-sub { font-size: 0.72rem; color: var(--text-4); }
+    .lang-badge {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.04em;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .badge-native { background: #dcfce7; color: #166534; }
+    .badge-inter { background: #fef9c3; color: #854d0e; }
+
+    .strengths { display: flex; flex-wrap: wrap; gap: 7px; }
+    .str-pill {
+      font-size: 0.76rem; font-weight: 400; color: var(--text-3);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 5px 13px; border-radius: 999px;
+      transition: border-color 0.15s;
+    }
+    .str-pill:hover { border-color: var(--border-dark); color: var(--text); }
+
+    /* CONTACT */
+    #contact { background: var(--bg); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    @media(max-width: 700px) { .contact-layout { grid-template-columns: 1fr; } }
+
+    .contact-cards { display: flex; flex-direction: column; gap: 10px; }
+    .ccard {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 16px 18px; text-decoration: none;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .ccard:hover { border-color: var(--border-dark); transform: translateX(3px); }
+    .ccard-icon {
+      width: 38px; height: 38px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+      background: var(--tag-bg);
+    }
+    .ccard-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-4); }
+    .ccard-val { font-size: 0.85rem; font-weight: 500; color: var(--text); }
+
+    .contact-info-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px;
+    }
+    .cib-name { font-family: 'Lora', serif; font-weight: 600; font-size: 1.5rem; color: var(--text); margin-bottom: 4px; letter-spacing: -0.3px; }
+    .cib-role { font-size: 0.82rem; color: var(--text-4); margin-bottom: 22px; }
+    .cib-line { height: 1px; background: var(--border); margin-bottom: 18px; }
+    .cib-rows { display: flex; flex-direction: column; gap: 10px; }
+    .cib-row { display: flex; gap: 10px; align-items: flex-start; font-size: 0.82rem; }
+    .cib-key { color: var(--text-4); font-weight: 500; min-width: 80px; flex-shrink: 0; }
+    .cib-val { color: var(--text-2); }
+
+    footer {
+      padding: 28px clamp(20px,5vw,80px);
+      border-top: 1px solid var(--border);
+      background: var(--white);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+    }
+    footer p { font-size: 0.78rem; color: var(--text-4); }
+    footer span { color: var(--text-2); font-weight: 500; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.78rem; color: var(--text-4); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); }
   </style>
 </head>
 <body>
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-
-<div id="loader">
-  <div class="loader-initials">MM</div>
-  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
-</div>
-
-<canvas id="particle-canvas"></canvas>
 
 <nav>
   <a class="nav-logo" href="#hero">Mohamed Magdy</a>
@@ -626,716 +396,465 @@
   </ul>
 </nav>
 
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-left">
-    <div class="availability-tag">
-      <span class="availability-dot"></span>
-      Open to New Opportunities
+  <div class="hero-inner">
+    <div class="reveal">
+      <div class="avail"><span class="avail-dot"></span>Open to New Opportunities</div>
+      <h1 class="hero-name">Mohamed<br><em>Magdy</em></h1>
+      <p class="hero-desc">Software QC Engineer specialising in manual, mobile &amp; API testing, with hands-on automation using Selenium Java. ISTQB Certified — Cairo, Egypt.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-dark">Get in Touch</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+        <a href="https://www.linkedin.com/in/mohamed-magddyy111" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn ↗</a>
+        <a href="https://github.com/mohamedmagddyy" target="_blank" rel="noopener" class="btn btn-outline">GitHub ↗</a>
+      </div>
     </div>
-    <h1 class="hero-name">Mohamed<br>Magdy</h1>
-    <p class="hero-title">Software <span>QC Engineer</span> — Manual, Mobile &amp; API Testing</p>
-    <div class="hero-btns">
-      <a href="#contact" class="btn-primary"><span>Get in Touch</span></a>
-      <a href="#projects" class="btn-secondary">View Projects</a>
-    </div>
-  </div>
-  <div class="hero-right">
-    <div class="card-scene">
-      <div class="card-glow"></div>
-      <div class="floating-card">
-        <div class="spin-ring"></div>
-        <div class="spin-ring-inner"></div>
-        <div class="card-avatar">MM</div>
-        <div class="card-name">Mohamed Magdy</div>
-        <div class="card-role">Software QC Engineer</div>
-        <div class="card-stats">
-          <div class="stat">
-            <div class="stat-num">1+</div>
-            <div class="stat-label">Years Exp.</div>
+    <div class="hero-card-col reveal" style="transition-delay:0.15s">
+      <div class="hcard">
+        <div class="hcard-top">
+          <div>
+            <div class="hcard-name">Mohamed Magdy</div>
+            <div class="hcard-role">Software QC Engineer</div>
           </div>
+        </div>
+        <div class="hcard-divider"></div>
+        <div class="hcard-stats">
+          <div class="hstat"><div class="hstat-num">1+</div><div class="hstat-label">Years</div></div>
+        </div>
+        <div class="hcard-tags">
+          <span class="htag">Manual Testing</span>
+          <span class="htag">Mobile Testing (Android & iOS)</span>
+          <span class="htag">ISTQB CTFL v4</span>
+          <span class="htag">API</span>
+          <span class="htag">Automation</span>
+          <span class="htag">Performance</span>
+          <span class="htag">Databases</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="marquee-section">
+<!-- MARQUEE -->
+<div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="marquee-item">Keyframe</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Score Fit</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Semi Corner</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">E-commerce</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Healthcare</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Tourism</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">ISTQB Certified</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Agile / Scrum</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Selenium</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Postman</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Keyframe</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Score Fit</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Semi Corner</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">E-commerce</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Healthcare</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Tourism</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">ISTQB Certified</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Agile / Scrum</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Selenium</span><span class="marquee-sep">✦</span>
-    <span class="marquee-item">Postman</span><span class="marquee-sep">✦</span>
+    <span class="mq">Keyframe</span><span class="mq-dot">●</span>
+    <span class="mq">Score Fit</span><span class="mq-dot">●</span>
+    <span class="mq">Semi Corner</span><span class="mq-dot">●</span>
+    <span class="mq">ISTQB Certified</span><span class="mq-dot">●</span>
+    <span class="mq">E-commerce</span><span class="mq-dot">●</span>
+    <span class="mq">Healthcare</span><span class="mq-dot">●</span>
+    <span class="mq">Tourism</span><span class="mq-dot">●</span>
+    <span class="mq">Agile / Scrum</span><span class="mq-dot">●</span>
+    <span class="mq">Selenium</span><span class="mq-dot">●</span>
+    <span class="mq">Postman</span><span class="mq-dot">●</span>
+    <span class="mq">JMeter</span><span class="mq-dot">●</span>
+    <span class="mq">Manual Testing</span><span class="mq-dot">●</span>
+    <span class="mq">Keyframe</span><span class="mq-dot">●</span>
+    <span class="mq">Score Fit</span><span class="mq-dot">●</span>
+    <span class="mq">Semi Corner</span><span class="mq-dot">●</span>
+    <span class="mq">ISTQB Certified</span><span class="mq-dot">●</span>
+    <span class="mq">E-commerce</span><span class="mq-dot">●</span>
+    <span class="mq">Healthcare</span><span class="mq-dot">●</span>
+    <span class="mq">Tourism</span><span class="mq-dot">●</span>
+    <span class="mq">Agile / Scrum</span><span class="mq-dot">●</span>
+    <span class="mq">Selenium</span><span class="mq-dot">●</span>
+    <span class="mq">Postman</span><span class="mq-dot">●</span>
+    <span class="mq">JMeter</span><span class="mq-dot">●</span>
+    <span class="mq">Manual Testing</span><span class="mq-dot">●</span>
   </div>
 </div>
 
+<!-- SKILLS -->
 <section id="skills">
-  <div class="section-wrap">
-    <div class="section-badge">Expertise</div>
-    <h2 class="section-title">Technical <span>Skills</span></h2>
-    <div class="skills-grid">
+  <div class="wrap">
+    <div class="sec-label">Expertise</div>
+    <h2 class="sec-title">Technical <em>Skills</em></h2>
+    <div class="skills-cols">
       <div class="reveal">
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Manual Testing</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">API Testing</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Mobile Testing (Android &amp; iOS)</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Regression &amp; Functional Testing</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">UAT &amp; Exploratory Testing</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Manual Testing</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">API Testing</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Mobile Testing (Android &amp; iOS)</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Regression &amp; Functional Testing</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">UAT &amp; Exploratory Testing</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Bug Tracking</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
       </div>
-      <div class="reveal" style="transition-delay:0.15s">
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Selenium WebDriver</span><span class="skill-pct">Very Good</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="75"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Performance Testing</span><span class="skill-pct">Very Good</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="75"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Bug Tracking</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">SQL / Database Validation</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Test Automation Frameworks</span><span class="skill-pct">Good</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="65"></div></div>
-        </div>
-        <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Agile / Scrum Methodology</span><span class="skill-pct">Excellent</span></div>
-          <div class="skill-track"><div class="skill-fill" data-pct="100"></div></div>
-        </div>
+      <div class="reveal" style="transition-delay:0.1s">
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Selenium WebDriver</span><span class="skill-level">Very Good</span></div><div class="skill-bar"><div class="skill-fill" data-pct="75"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Performance Testing (JMeter)</span><span class="skill-level">Very Good</span></div><div class="skill-bar"><div class="skill-fill" data-pct="75"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">SQL / Database Validation</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Test Automation Frameworks</span><span class="skill-level">Good</span></div><div class="skill-bar"><div class="skill-fill" data-pct="65"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Agile / Scrum</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
+        <div class="skill-row"><div class="skill-top"><span class="skill-name">Risk-Based Testing</span><span class="skill-level">Excellent</span></div><div class="skill-bar"><div class="skill-fill" data-pct="100"></div></div></div>
       </div>
     </div>
-
-    <div class="chips-wrap reveal">
-      <div class="chips-title">Technologies &amp; Tools</div>
-      <div class="chips-section">
-        <div class="chips-section-label">Testing Types</div>
-        <div class="chips">
-          <span class="chip">Functional</span><span class="chip">Regression</span><span class="chip">Smoke</span>
-          <span class="chip">Sanity</span><span class="chip">UI Testing</span><span class="chip">Integration</span>
-          <span class="chip">System Testing</span><span class="chip">End-to-End (E2E)</span><span class="chip">Exploratory</span>
-          <span class="chip">UAT</span><span class="chip">Compatibility</span><span class="chip">Accessibility</span>
-          <span class="chip">API Testing</span><span class="chip">Database Testing</span><span class="chip">Performance Testing</span>
-          <span class="chip">Usability Testing</span><span class="chip">Acceptance Testing</span>
-        </div>
+    <div class="tools-section reveal" style="transition-delay:0.05s">
+      <div class="tools-title">Tools &amp; Technologies</div>
+      <div class="tools-grid">
+        <div class="tool-card"><div class="tool-card-label">Testing Types</div><div class="tool-pills"><span class="tool-pill">Functional</span><span class="tool-pill">Regression</span><span class="tool-pill">Smoke</span><span class="tool-pill">Sanity</span><span class="tool-pill">UI</span><span class="tool-pill">E2E</span><span class="tool-pill">UAT</span><span class="tool-pill">Compatibility</span><span class="tool-pill">Exploratory</span><span class="tool-pill">Performance</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">API Testing</div><div class="tool-pills"><span class="tool-pill">Postman</span><span class="tool-pill">Apidog</span><span class="tool-pill">Swagger</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Bug Tracking</div><div class="tool-pills"><span class="tool-pill">Jira + Zephyr</span><span class="tool-pill">Trello</span><span class="tool-pill">ClickUp</span><span class="tool-pill">Notion</span><span class="tool-pill">Azure DevOps</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Automation</div><div class="tool-pills"><span class="tool-pill">Selenium WebDriver</span><span class="tool-pill">Java</span><span class="tool-pill">TestNG</span><span class="tool-pill">Cucumber</span><span class="tool-pill">Allure</span><span class="tool-pill">POM</span><span class="tool-pill">BDD</span><span class="tool-pill">Data-Driven</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Performance</div><div class="tool-pills"><span class="tool-pill">Apache JMeter</span><span class="tool-pill">Load Testing</span><span class="tool-pill">Stress Testing</span><span class="tool-pill">Soak Testing</span><span class="tool-pill">Spike Testing</span><span class="tool-pill">HTML Reports</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Databases</div><div class="tool-pills"><span class="tool-pill">MySQL</span><span class="tool-pill">SQL Server</span><span class="tool-pill">PostgreSQL</span><span class="tool-pill">SQLite</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Mobile</div><div class="tool-pills"><span class="tool-pill">Android</span><span class="tool-pill">iOS</span><span class="tool-pill">Android Studio</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Version Control</div><div class="tool-pills"><span class="tool-pill">Git</span><span class="tool-pill">GitHub</span><span class="tool-pill">Fork GUI</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Programming</div><div class="tool-pills"><span class="tool-pill">Java (OOP)</span><span class="tool-pill">JavaScript</span><span class="tool-pill">Python</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">AI Tools</div><div class="tool-pills"><span class="tool-pill">Claude AI</span><span class="tool-pill">ChatGPT</span><span class="tool-pill">GitHub Copilot</span><span class="tool-pill">Cursor</span><span class="tool-pill">NotebookLM</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">IDEs</div><div class="tool-pills"><span class="tool-pill">IntelliJ IDEA</span><span class="tool-pill">VS Code</span><span class="tool-pill">Antigravity</span></div></div>
+        <div class="tool-card"><div class="tool-card-label">Methodologies</div><div class="tool-pills"><span class="tool-pill">Agile / Scrum</span><span class="tool-pill">Kanban</span><span class="tool-pill">Risk-Based</span><span class="tool-pill">Exploratory Charters</span></div></div>
       </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Bug Tracking</div>
-        <div class="chips">
-          <span class="chip">Jira + Zephyr</span><span class="chip">Trello</span><span class="chip">ClickUp</span>
-          <span class="chip">Notion</span><span class="chip">Azure DevOps</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Mobile Testing</div>
-        <div class="chips">
-          <span class="chip">Android</span><span class="chip">iOS</span><span class="chip">Android Studio (Emulator)</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">API Testing</div>
-        <div class="chips">
-          <span class="chip">Postman</span><span class="chip">Apidog</span><span class="chip">Swagger</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Methodologies</div>
-        <div class="chips">
-          <span class="chip">Agile / Scrum</span><span class="chip">Kanban</span><span class="chip">Risk-Based Testing</span>
-          <span class="chip">Exploratory Charters</span><span class="chip">Test Coverage Analysis</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Automation</div>
-        <div class="chips">
-          <span class="chip">Selenium WebDriver</span><span class="chip">Java</span><span class="chip">TestNG</span>
-          <span class="chip">Cucumber</span><span class="chip">Allure Reports</span><span class="chip">Page Object Model (POM)</span>
-          <span class="chip">Data-Driven Testing</span><span class="chip">Behavior-Driven Development (BDD)</span>
-          <span class="chip">Cross-Browser Testing</span><span class="chip">Parallel Execution</span>
-          <span class="chip">Waits</span><span class="chip">Log4j</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Databases</div>
-        <div class="chips">
-          <span class="chip">MySQL</span><span class="chip">SQL Server</span><span class="chip">PostgreSQL</span>
-          <span class="chip">SQLite</span><span class="chip">Data Validation</span><span class="chip">SQL Queries</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Performance Testing</div>
-        <div class="chips">
-          <span class="chip">Apache JMeter</span><span class="chip">Load Testing</span><span class="chip">Stress Testing</span>
-          <span class="chip">Soak Testing</span><span class="chip">Scalability Testing</span><span class="chip">Volume Testing</span>
-          <span class="chip">Throughput Analysis</span><span class="chip">Response Time Analysis</span>
-          <span class="chip">HTML Reports</span><span class="chip">CSV Data Set Config</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">Version Control</div>
-        <div class="chips">
-          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Fork (Git GUI)</span>
-          <span class="chip">GitHub Actions</span><span class="chip">Merge Conflict Resolution</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">IDEs</div>
-        <div class="chips">
-          <span class="chip">IntelliJ IDEA</span><span class="chip">VS Code</span>
-        </div>
-      </div>
-      <div class="chips-section">
-        <div class="chips-section-label">AI Tools</div>
-        <div class="chips">
-          <span class="chip">Claude AI</span><span class="chip">ChatGPT</span><span class="chip">GitHub Copilot</span>
-          <span class="chip">Cursor</span><span class="chip">NotebookLM</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">API Testing</div>
-        <div class="chips">
-          <span class="chip">Postman</span>
-          <span class="chip">Apidog</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">Automation</div>
-        <div class="chips">
-          <span class="chip">Selenium WebDriver</span>
-          <span class="chip">Java</span>
-          <span class="chip">TestNG</span>
-          <span class="chip">Cucumber</span>
-          <span class="chip">Allure Reports</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">Bug Tracking</div>
-        <div class="chips">
-          <span class="chip">Jira + Zephyr</span>
-          <span class="chip">Trello</span>
-          <span class="chip">ClickUp</span>
-          <span class="chip">Notion</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">Databases</div>
-        <div class="chips">
-          <span class="chip">MySQL</span>
-          <span class="chip">SQL Server</span>
-          <span class="chip">PostgreSQL</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">Version Control</div>
-        <div class="chips">
-          <span class="chip">Git</span>
-          <span class="chip">GitHub</span>
-          <span class="chip">Fork (Git GUI)</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">IDEs</div>
-        <div class="chips">
-          <span class="chip">IntelliJ IDEA</span>
-          <span class="chip">VS Code</span>
-          <span class="chip">Antigravity</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">AI Tools</div>
-        <div class="chips">
-          <span class="chip">Claude AI</span>
-          <span class="chip">ChatGPT</span>
-          <span class="chip">GitHub Copilot</span>
-          <span class="chip">Cursor</span>
-        </div>
-      </div>
-
-      <div class="chips-section">
-        <div class="chips-section-label">Methodologies</div>
-        <div class="chips">
-          <span class="chip">Agile / Scrum</span>
-          <span class="chip">Kanban</span>
-          <span class="chip">Risk-Based Testing</span>
-          <span class="chip">Exploratory Charters</span>
-          <span class="chip">Test Coverage Analysis</span>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
+<!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-wrap">
-    <div class="section-badge">Career</div>
-    <h2 class="section-title">Work <span>Experience</span></h2>
+  <div class="wrap">
+    <div class="sec-label">Career</div>
+    <h2 class="sec-title">Work <em>Experience</em></h2>
     <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="job-card">
-          <div class="job-header">
-            <div class="job-title">QA Engineer</div>
-            <div class="job-date">Aug 2025 — Present</div>
-          </div>
-          <div class="job-company">Keyframe</div>
-          <div class="job-type">Full Time · Hybrid · Cairo, Egypt</div>
-          <div class="job-desc">
-            <ul>
-              <li>Performed manual and API testing across E-commerce and Healthcare projects ensuring functionality, usability, and data accuracy.</li>
-              <li>Designed and executed test scenarios covering functional, regression, and end-to-end business flows.</li>
-              <li>Facilitated acceptance testing (UAT) to validate business requirements and align with stakeholder expectations.</li>
-              <li>Reported and tracked defects with detailed bug reports including steps to reproduce, screenshots, and videos.</li>
-              <li>Executed API testing using Postman-Apidog and built reusable API test collections.</li>
-            </ul>
-          </div>
-          <div class="job-tags">
-            <span class="tag">Manual Testing</span>
-            <span class="tag pink">API Testing</span>
-            <span class="tag cyan">UAT</span>
-            <span class="tag amber">Postman</span>
-            <span class="tag">Agile</span>
-          </div>
-        </div>
+      <div class="job reveal">
+        <div class="job-top"><div class="job-title">QA Engineer</div><div class="job-date">Aug 2025 — Present</div></div>
+        <div class="job-co">Keyframe</div>
+        <div class="job-type">Full Time · Hybrid · Cairo, Egypt</div>
+        <ul class="job-bullets">
+          <li>Carried out manual and API testing across 9+ projects in diverse business domains, ensuring functionality, usability, and data accuracy.</li>
+          <li>Created and implemented test scenarios covering functional, regression, and end-to-end business flows.</li>
+          <li>Conducted UAT to validate business requirements and ensure alignment with stakeholders.</li>
+          <li>Reported and tracked 100+ defects with clear bug reports, screenshots, and videos to support faster resolution.</li>
+          <li>Worked closely with developers, product owners, and stakeholders during Agile sprints and UAT cycles.</li>
+          <li>Ran API testing using Postman with assertions to verify response accuracy and consistency.</li>
+        </ul>
+        <div class="job-tags"><span class="jtag">Manual Testing</span><span class="jtag">API Testing</span><span class="jtag">UAT</span><span class="jtag">Postman</span><span class="jtag">Apidog</span><span class="jtag">Agile</span></div>
       </div>
-      <div class="timeline-item reveal" style="transition-delay:0.15s">
-        <div class="timeline-dot"></div>
-        <div class="job-card">
-          <div class="job-header">
-            <div class="job-title">Software QC Engineer</div>
-            <div class="job-date">Apr 2025 — Sep 2025</div>
-          </div>
-          <div class="job-company">Score Fit</div>
-          <div class="job-type">Full Time · Remote</div>
-          <div class="job-desc">
-            <ul>
-              <li>Tested Kershless mobile application (Android &amp; iOS) covering functional, UI, and regression scenarios.</li>
-              <li>Designed and executed test cases and validated data through database checks.</li>
-              <li>Performed API testing using Postman with assertions to ensure response accuracy and consistency.</li>
-              <li>Implemented API automation using Postman scripts and collaborated with developers to resolve defects.</li>
-            </ul>
-          </div>
-          <div class="job-tags">
-            <span class="tag">Mobile Testing</span>
-            <span class="tag pink">Android &amp; iOS</span>
-            <span class="tag cyan">API Automation</span>
-            <span class="tag amber">Database</span>
-          </div>
-        </div>
+      <div class="job reveal" style="transition-delay:0.1s">
+        <div class="job-top"><div class="job-title">Software QC Engineer</div><div class="job-date">Apr 2025 — Sep 2025</div></div>
+        <div class="job-co">Score Fit</div>
+        <div class="job-type">Full Time · Remote</div>
+        <ul class="job-bullets">
+          <li>Tested the Kershless mobile application (Android &amp; iOS), covering functional, UI, and regression scenarios.</li>
+          <li>Developed test cases and validated database records to ensure data accuracy.</li>
+          <li>Completed 20+ API tests using Postman with assertions to validate response accuracy and consistency.</li>
+          <li>Systematised API tests using Postman scripts and collaborated with developers to resolve defects.</li>
+        </ul>
+        <div class="job-tags"><span class="jtag">Mobile Testing</span><span class="jtag">Android &amp; iOS</span><span class="jtag">API Testing</span><span class="jtag">Postman</span><span class="jtag">Database Validation</span></div>
       </div>
-      <div class="timeline-item reveal" style="transition-delay:0.3s">
-        <div class="timeline-dot"></div>
-        <div class="job-card">
-          <div class="job-header">
-            <div class="job-title">Software Testing Engineer Intern</div>
-            <div class="job-date">Feb 2024 — May 2024</div>
-          </div>
-          <div class="job-company">Semi Corner</div>
-          <div class="job-type">Full Time · Remote</div>
-          <div class="job-desc">
-            <ul>
-              <li>Tested Etmana E-commerce platform (web &amp; mobile) covering functional, UI, exploratory, and regression testing.</li>
-              <li>Designed and executed 2+ test cases, improving test efficiency and coverage.</li>
-              <li>Identified and reported 1+ critical defects with clear documentation and reproduction steps.</li>
-              <li>Collaborated with QA &amp; development teams in Agile/Scrum to ensure product quality and stability.</li>
-            </ul>
-          </div>
-          <div class="job-tags">
-            <span class="tag">Exploratory Testing</span>
-            <span class="tag pink">2+ Test Cases</span>
-            <span class="tag cyan">1+ Defects</span>
-            <span class="tag amber">Scrum</span>
-          </div>
-        </div>
+      <div class="job reveal" style="transition-delay:0.2s">
+        <div class="job-top"><div class="job-title">Software Testing Engineer Intern</div><div class="job-date">Feb 2024 — May 2024</div></div>
+        <div class="job-co">Semi Corner</div>
+        <div class="job-type">Full Time · Remote</div>
+        <ul class="job-bullets">
+          <li>Managed end-to-end quality validation on the Etmana E-commerce platform (web &amp; mobile), covering functional, UI, and exploratory testing.</li>
+          <li>Designed and implemented 30+ test cases to improve test efficiency and coverage.</li>
+          <li>Identified and reported critical defects with clear documentation and reproduction steps.</li>
+          <li>Collaborated with QA and development teams in Agile/Scrum environments to ensure product quality and stability.</li>
+        </ul>
+        <div class="job-tags"><span class="jtag">E2E Testing</span><span class="jtag">Exploratory Testing</span><span class="jtag">30+ Test Cases</span><span class="jtag">Agile / Scrum</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
-  <div class="section-wrap">
-    <div class="section-badge">Portfolio</div>
-    <h2 class="section-title">Featured <span>Projects</span></h2>
-    <div class="projects-section-label reveal">
-      <span class="projects-section-icon">🤖</span>
-      <div>
-        <div class="projects-section-title">Automation Projects</div>
-        <div class="projects-section-sub">Selenium · TestNG · Allure · Java</div>
-      </div>
-    </div>
-    <div class="projects-grid" style="margin-bottom:56px">
-      <a href="https://github.com/mohamedmagddyy/automationExercise" target="_blank" rel="noopener" class="project-card reveal">
-        <span class="project-emoji">🔬</span>
-        <div class="project-name">Automation Exercise Project</div>
-        <div class="project-desc">Automated test scripts for AutomationExercise.com covering login, product browsing, cart operations, and checkout flows using Page Object Model.</div>
-        <div class="project-tags">
-          <span class="tag">Selenium</span><span class="tag cyan">Automation</span><span class="tag pink">Java</span><span class="tag amber">Allure</span>
+  <div class="wrap">
+    <div class="sec-label">Portfolio</div>
+    <h2 class="sec-title">Featured <em>Projects</em></h2>
+
+    <!-- Automation & Performance Projects -->
+    <div class="proj-group-title">Automation &amp; Performance — Selenium · JMeter · Java</div>
+    <div class="proj-grid" style="margin-bottom:36px">
+
+      <a href="https://github.com/mohamedmagddyy/automationExercise"
+         target="_blank" rel="noopener" class="pcard reveal">
+        <span class="pcard-icon">🔬</span>
+        <div class="pcard-title">Automation Exercise Project</div>
+        <div class="pcard-meta">
+          <span class="pmeta pmeta-type">Automation</span>
+          <span class="pmeta pmeta-platform">Web</span>
+        </div>
+        <div class="pcard-desc">
+          Selenium Java framework — smoke &amp; regression testing, Page Object Model,
+          TestNG, and Allure reports for AutomationExercise.com.
+        </div>
+        <div class="pcard-tags">
+          <span class="ptag">Selenium</span>
+          <span class="ptag">Java</span>
+          <span class="ptag">TestNG</span>
+          <span class="ptag">Allure</span>
+          <span class="ptag">POM</span>
         </div>
       </a>
-      <a href="https://github.com/mohamedmagddyy/saucedemo-automation" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.1s">
-        <span class="project-emoji">🛒</span>
-        <div class="project-name">SauceDemo Automation</div>
-        <div class="project-desc">Automated test scripts for SauceDemo e-commerce website validating login, product selection, cart operations, and checkout process with TestNG reports.</div>
-        <div class="project-tags">
-          <span class="tag">Selenium</span><span class="tag cyan">TestNG</span><span class="tag pink">Java</span>
+
+      <a href="https://github.com/mohamedmagddyy/saucedemo-automation"
+         target="_blank" rel="noopener" class="pcard reveal"
+         style="transition-delay:0.08s">
+        <span class="pcard-icon">🛒</span>
+        <div class="pcard-title">SauceDemo Automation</div>
+        <div class="pcard-meta">
+          <span class="pmeta pmeta-type">Automation</span>
+          <span class="pmeta pmeta-platform">Web</span>
+        </div>
+        <div class="pcard-desc">
+          Automated e-commerce workflows — login, product selection, cart,
+          and checkout using Selenium WebDriver and TestNG reports.
+        </div>
+        <div class="pcard-tags">
+          <span class="ptag">Selenium</span>
+          <span class="ptag">Java</span>
+          <span class="ptag">TestNG</span>
         </div>
       </a>
+
+      <a href="https://github.com/mohamedmagddyy/Qa-Cart-Performance-Testing"
+         target="_blank" rel="noopener" class="pcard reveal"
+         style="transition-delay:0.16s">
+        <span class="pcard-icon">📊</span>
+        <div class="pcard-title">QACart Todo — JMeter</div>
+        <div class="pcard-meta">
+          <span class="pmeta pmeta-type">Performance</span>
+          <span class="pmeta pmeta-platform">API</span>
+        </div>
+        <div class="pcard-desc">
+          Load, stress, and soak testing on QACart Todo Application using JMeter —
+          Thread Groups, Timers, Assertions, HTML Reports, and CSV Data Set.
+        </div>
+        <div class="pcard-tags">
+          <span class="ptag">JMeter</span>
+          <span class="ptag">Load Testing</span>
+          <span class="ptag">Stress</span>
+          <span class="ptag">Soak</span>
+        </div>
+      </a>
+
+      <a href="https://github.com/mohamedmagddyy/DummyJSON-Performance-Testing"
+         target="_blank" rel="noopener" class="pcard reveal"
+         style="transition-delay:0.24s">
+        <span class="pcard-icon">⚡</span>
+        <div class="pcard-title">DummyJSON API — JMeter</div>
+        <div class="pcard-meta">
+          <span class="pmeta pmeta-type">Performance</span>
+          <span class="pmeta pmeta-platform">API</span>
+        </div>
+        <div class="pcard-desc">
+          Load, spike, stress, and capacity testing on DummyJSON API —
+          Correlation, Parameterisation, Listeners, and HTML Reports.
+        </div>
+        <div class="pcard-tags">
+          <span class="ptag">JMeter</span>
+          <span class="ptag">Spike</span>
+          <span class="ptag">Capacity</span>
+        </div>
+      </a>
+
     </div>
-    <div class="projects-section-label reveal">
-      <span class="projects-section-icon">💼</span>
-      <div>
-        <div class="projects-section-title">Real Projects</div>
-        <div class="projects-section-sub">Manual · API · Mobile Testing</div>
+
+    <!-- Real-World Projects -->
+    <div class="proj-group-title">Real-World Projects — Manual · API · Mobile</div>
+    <div class="proj-grid">
+      <a href="https://dnpeg.com/" target="_blank" rel="noopener" class="pcard reveal">
+        <span class="pcard-icon">🛒</span>
+        <div class="pcard-title">DNP – Dr. Nutrition</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">E-commerce</span><span class="pmeta pmeta-platform">Web · Mobile · Dashboard</span></div>
+        <div class="pcard-desc">Nutritional products platform — E2E purchase flows, cart management, checkout, and admin dashboard testing.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Dashboard</span></div>
+      </a>
+      <a href="https://libomed.com.ly/" target="_blank" rel="noopener" class="pcard reveal" style="transition-delay:0.08s">
+        <span class="pcard-icon">🏥</span>
+        <div class="pcard-title">Libomed Platform</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Healthcare · B2B</span><span class="pmeta pmeta-platform">Web</span></div>
+        <div class="pcard-desc">Hospital network platform — patient enrollment, B2B medical supplies, complex data validation and business flows.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">B2B</span><span class="ptag">Data Integrity</span></div>
+      </a>
+      <div class="pcard reveal" style="transition-delay:0.16s">
+        <span class="pcard-icon">🏋️</span>
+        <div class="pcard-title">Kershless Fitness App</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Fitness</span><span class="pmeta pmeta-platform">Android &amp; iOS</span></div>
+        <div class="pcard-desc">Workout tracking and health monitoring — functional, UI, regression, and 20+ API tests via Postman.</div>
+        <div class="pcard-tags"><span class="ptag">Mobile Testing</span><span class="ptag">API Testing</span><span class="ptag">Postman</span></div>
       </div>
-    </div>
-    <div class="projects-grid">
-      <a href="https://dnpeg.com/" target="_blank" rel="noopener" class="project-card reveal">
-        <span class="project-emoji">🛒</span>
-        <div class="project-name">DNP – Dr. Nutrition</div>
-        <div class="project-meta"><span class="meta-pill type">E-commerce</span><span class="meta-pill platform">Web · Mobile App · Mobile Web</span></div>
-        <div class="project-desc">Full-scale nutritional products platform covering end-to-end purchase flows, cart management, checkout, and dashboard admin testing.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag">Dashboard</span></div>
+      <a href="https://www.dh.gov.om" target="_blank" rel="noopener" class="pcard reveal">
+        <span class="pcard-icon">🌏</span>
+        <div class="pcard-title">Dhofar Tourism Platform</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Tourism · Gov</span><span class="pmeta pmeta-platform">Web · Dashboard</span></div>
+        <div class="pcard-desc">Tourism platform for Dhofar Governorate (Oman) — manual, API testing, data consistency and real-time sync validation.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">API Testing</span><span class="ptag">Dashboard</span></div>
       </a>
-      <a href="https://libomed.com.ly/" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.1s">
-        <span class="project-emoji">🏥</span>
-        <div class="project-name">Libomed Platform</div>
-        <div class="project-meta"><span class="meta-pill type">Healthcare · B2B</span><span class="meta-pill platform">Web</span></div>
-        <div class="project-desc">Hospital network platform for patient enrollment and medical supplies B2B store. Tested complex data validation workflows and business flows.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span></div>
+      <a href="https://www.100millionseha.eg/" target="_blank" rel="noopener" class="pcard reveal" style="transition-delay:0.08s">
+        <span class="pcard-icon">🏛️</span>
+        <div class="pcard-title">100 Million Seha</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Public Health · Gov</span><span class="pmeta pmeta-platform">Web · Dashboard</span></div>
+        <div class="pcard-desc">National health initiative — screening &amp; awareness journeys, large-scale user flows, healthcare data accuracy, admin dashboard.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Dashboard</span></div>
       </a>
-      <div class="project-card reveal" style="transition-delay:0.2s">
-        <span class="project-emoji">🏋️</span>
-        <div class="project-name">Kershless Fitness App</div>
-        <div class="project-meta"><span class="meta-pill type">Fitness</span><span class="meta-pill platform">Mobile App (Android &amp; iOS)</span></div>
-        <div class="project-desc">Mobile fitness app for workout tracking and health monitoring. Validated functional, UI, and regression scenarios with API automation via Postman.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag pink">API Testing</span></div>
+      <div class="pcard reveal" style="transition-delay:0.16s">
+        <span class="pcard-icon">🛍️</span>
+        <div class="pcard-title">Etmana E-commerce</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">E-commerce</span><span class="pmeta pmeta-platform">Web · Mobile</span></div>
+        <div class="pcard-desc">Full E2E validation — product browsing, cart, checkout, 30+ test cases, and critical defect reporting across web and mobile.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Regression</span><span class="ptag">E2E</span></div>
       </div>
-      <a href="https://www.dh.gov.om" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.1s">
-        <span class="project-emoji">🌏</span>
-        <div class="project-name">Dhofar Tourism Platform</div>
-        <div class="project-meta"><span class="meta-pill type">Tourism · Government</span><span class="meta-pill platform">Web · Dashboard</span></div>
-        <div class="project-desc">Tourism platform for Dhofar Governorate (Oman) showcasing destinations and hospitality services. Covered manual, API, and dashboard testing.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag pink">API Testing</span><span class="tag">Dashboard</span></div>
-      </a>
-      <a href="https://www.100millionseha.eg/" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.2s">
-        <span class="project-emoji">🏛️</span>
-        <div class="project-name">100 Million Seha</div>
-        <div class="project-meta"><span class="meta-pill type">Public Health · Government</span><span class="meta-pill platform">Web · Dashboard</span></div>
-        <div class="project-desc">National health initiative for disease screening and awareness. Tested large-scale user flows, healthcare data accuracy, and admin dashboard.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag">Dashboard</span></div>
-      </a>
-      <div class="project-card reveal" style="transition-delay:0.3s">
-        <span class="project-emoji">🛍️</span>
-        <div class="project-name">Etmana E-commerce</div>
-        <div class="project-meta"><span class="meta-pill type">E-commerce</span><span class="meta-pill platform">Web · Mobile App · Mobile Web</span></div>
-        <div class="project-desc">E-commerce platform for product browsing, cart management, and online purchases. Executed 2+ test cases and logged 1+ critical defects.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag amber">Regression</span></div>
+      <div class="pcard reveal">
+        <span class="pcard-icon">📋</span>
+        <div class="pcard-title">Done Management Tool</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Project Management</span><span class="pmeta pmeta-platform">Web · Mobile Web</span></div>
+        <div class="pcard-desc">Task workflows, validations, and user role interactions — E2E business flows and automated API collections.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">API Automation</span></div>
       </div>
-      <div class="project-card reveal">
-        <span class="project-emoji">📋</span>
-        <div class="project-name">Done Management Tool</div>
-        <div class="project-meta"><span class="meta-pill type">Project Management</span><span class="meta-pill platform">Web · Mobile Web</span></div>
-        <div class="project-desc">Web-based task tracking and workflow automation tool. Tested end-to-end business flows, integrations, and automated API collections.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag pink">API Automation</span></div>
-      </div>
-      <a href="https://www.kuwaitfoodbank.org/home" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.1s">
-        <span class="project-emoji">🤝</span>
-        <div class="project-name">Kuwait Food Bank</div>
-        <div class="project-meta"><span class="meta-pill type">Charity · Non-profit</span><span class="meta-pill platform">Web · Mobile Web · Dashboard</span></div>
-        <div class="project-desc">Donation and food distribution platform. Validated donation flows, user management, reporting features, and admin dashboard functionality.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag">Dashboard</span></div>
+      <a href="https://www.kuwaitfoodbank.org/home" target="_blank" rel="noopener" class="pcard reveal" style="transition-delay:0.08s">
+        <span class="pcard-icon">🤝</span>
+        <div class="pcard-title">Kuwait Food Bank</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Charity</span><span class="pmeta pmeta-platform">Web · Mobile Web · Dashboard</span></div>
+        <div class="pcard-desc">Donation flows and payment integrations — KNET, Visa, Apple Pay — user management, reporting, and admin dashboard.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Payment Integration</span><span class="ptag">Dashboard</span></div>
       </a>
-      <a href="https://afcca.net/" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.2s">
-        <span class="project-emoji">🏗️</span>
-        <div class="project-name">AFCCA</div>
-        <div class="project-meta"><span class="meta-pill type">Construction &amp; Contracting</span><span class="meta-pill platform">Web · Mobile Web</span></div>
-        <div class="project-desc">Corporate web platform for a contracting company. Tested functional flows, UI consistency, and cross-browser compatibility across web and mobile web.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag amber">Cross-browser</span></div>
+      <a href="https://afcca.net/" target="_blank" rel="noopener" class="pcard reveal" style="transition-delay:0.16s">
+        <span class="pcard-icon">🏗️</span>
+        <div class="pcard-title">AFCCA</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Corporate</span><span class="pmeta pmeta-platform">Web · Mobile Web</span></div>
+        <div class="pcard-desc">Content management, membership flows, and communication features — UI consistency and cross-browser compatibility.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Cross-browser</span></div>
       </a>
-      <a href="https://stperistaging.eri.sci.eg/" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.3s">
-        <span class="project-emoji">🔭</span>
-        <div class="project-name">Madina – Science &amp; Technology Valley</div>
-        <div class="project-meta"><span class="meta-pill type">Government · Smart City</span><span class="meta-pill platform">Mobile App · Mobile Web · Dashboard</span></div>
-        <div class="project-desc">Government smart city initiative platform. Tested mobile app, mobile web flows, and admin dashboard for a national science and technology valley project.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag">Dashboard</span></div>
+      <a href="https://stperistaging.eri.sci.eg/" target="_blank" rel="noopener" class="pcard reveal">
+        <span class="pcard-icon">🔭</span>
+        <div class="pcard-title">Science &amp; Technology Valley</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Gov · Smart City</span><span class="pmeta pmeta-platform">Web · Mobile Web · Dashboard</span></div>
+        <div class="pcard-desc"> web flows, and admin dashboard for innovation hub features.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Mobile</span><span class="ptag">Dashboard</span></div>
       </a>
-      <a href="https://www.mg.gov.om/about" target="_blank" rel="noopener" class="project-card reveal">
-        <span class="project-emoji">⛰️</span>
-        <div class="project-name">Musandam Platform</div>
-        <div class="project-meta"><span class="meta-pill type">Tourism · Government</span><span class="meta-pill platform">Web · Dashboard</span></div>
-        <div class="project-desc">Governorate platform for Musandam (Oman). Covered manual testing, API validation, and admin dashboard for tourism and government services.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag pink">API Testing</span><span class="tag">Dashboard</span></div>
+      <a href="https://www.mg.gov.om/about" target="_blank" rel="noopener" class="pcard reveal" style="transition-delay:0.08s">
+        <span class="pcard-icon">⛰️</span>
+        <div class="pcard-title">Musandam Platform</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">Tourism · Gov</span><span class="pmeta pmeta-platform">Web · Dashboard</span></div>
+        <div class="pcard-desc">Governorate platform for Musandam (Oman) — admin dashboard functionality, user journeys, and API validation.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">API Testing</span><span class="ptag">Dashboard</span></div>
       </a>
-      <a href="https://demo.nopcommerce.com/" target="_blank" rel="noopener" class="project-card reveal" style="transition-delay:0.1s">
-        <span class="project-emoji">🛒</span>
-        <div class="project-name">Demo NopCommerce</div>
-        <div class="project-meta"><span class="meta-pill type">E-commerce</span><span class="meta-pill platform">Web</span></div>
-        <div class="project-desc">Manual testing on NopCommerce demo environment covering product catalog, cart, checkout, and admin panel to validate e-commerce core flows.</div>
-        <div class="project-tags"><span class="tag cyan">Manual Testing</span><span class="tag amber">Regression</span></div>
+      <a href="https://demo.nopcommerce.com/" target="_blank" rel="noopener" class="pcard reveal" style="transition-delay:0.16s">
+        <span class="pcard-icon">🛒</span>
+        <div class="pcard-title">Demo NopCommerce</div>
+        <div class="pcard-meta"><span class="pmeta pmeta-type">E-commerce</span><span class="pmeta pmeta-platform">Web</span></div>
+        <div class="pcard-desc">Product catalog, cart, checkout, and admin panel — core e-commerce flow validation and regression testing.</div>
+        <div class="pcard-tags"><span class="ptag">Manual Testing</span><span class="ptag">Regression</span></div>
       </a>
     </div>
   </div>
 </section>
 
+<!-- EDUCATION -->
 <section id="education">
-  <div class="section-wrap">
-    <div class="section-badge">Background</div>
-    <h2 class="section-title">Education &amp; <span>Languages</span></h2>
-    <div class="edu-lang-grid">
-
-      <!-- LEFT COLUMN: Education + Certifications -->
+  <div class="wrap">
+    <div class="sec-label">Background</div>
+    <h2 class="sec-title">Education &amp; <em>Certifications</em></h2>
+    <div class="edu-grid">
       <div>
         <div class="edu-card reveal">
-          <div class="edu-icon">🎓</div>
+          <span class="edu-icon">🎓</span>
           <div class="edu-degree">Bachelor's Degree in Computer Science</div>
-          <div class="edu-institution">Canadian International College</div>
+          <div class="edu-inst">Canadian International College</div>
           <div class="edu-detail">
             Major: Mobile and Cloud Computing<br>
-            Graduation: Sep 2019 – Jun 2023<br>
+            Sep 2019 – Jun 2023<br>
             Graduation Project: Virtual Tour 360 — Grade: B+
           </div>
-          <div class="edu-gpa">GPA: 2.8</div>
+          <span class="edu-badge">GPA: 2.8</span>
         </div>
-
-        <!-- Certifications -->
         <div class="reveal" style="transition-delay:0.1s">
-          <div class="chips-title" style="margin-bottom:16px">Certifications</div>
-          <div class="certs-wrap">
-
-            <a href="https://drive.google.com/file/d/1GESDYbwRJORNgdvanH7E-3yoOMs9cL7u/view?usp=drive_link  " target="_blank" rel="noopener" class="cert-card">
-              <span class="cert-icon">📊</span>
-              <div>
-                <div class="cert-name">Performance Testing Certificate</div>
-                <div class="cert-id">QAcart · Click to view PDF ↗</div>
-              </div>
-            </a>
-
-            <a href="https://drive.google.com/file/d/1qqofZmDhr4lCQorx1mJS2wv2PH0dk8E6/view?usp=drive_link" target="_blank" rel="noopener" class="cert-card">
-              <span class="cert-icon">🧪</span>
-              <div>
-                <div class="cert-name">Manual Testing Certificate</div>
-                <div class="cert-id">QAcart · Click to view PDF ↗</div>
-              </div>
-            </a>
-
-            <a href="https://drive.google.com/file/d/1mKXRRoGNSaPxK1tJuQ3xp3yA53rt2kiH/view?usp=drive_link" target="_blank" rel="noopener" class="cert-card">
-              <span class="cert-icon">🔌</span>
-              <div>
-                <div class="cert-name">API Testing Certificate</div>
-                <div class="cert-id">QAcart · Click to view PDF ↗</div>
-              </div>
-            </a>
-
-            <div class="cert-card" style="cursor:default;">
-              <span class="cert-icon">🏆</span>
-              <div>
-                <div class="cert-name">ISTQB Certified Tester — Foundation Level V4</div>
-                <div class="cert-id">Certificate ID: 251223045</div>
-              </div>
-            </div>
-
+          <p class="sub-heading">Certifications</p>
+          <div class="certs">
+            <div class="cert"><span class="cert-icon">🏆</span><div><div class="cert-name">ISTQB Certified Tester — Foundation Level V4</div><div class="cert-sub">Certificate ID: 251223045</div></div></div>
+            <a href="https://drive.google.com/file/d/1GESDYbwRJORNgdvanH7E-3yoOMs9cL7u/view?usp=drive_link" target="_blank" rel="noopener" class="cert"><span class="cert-icon">📊</span><div><div class="cert-name">Performance Testing Certificate</div><div class="cert-sub">QAcart · View PDF ↗</div></div></a>
+            <a href="https://drive.google.com/file/d/1qqofZmDhr4lCQorx1mJS2wv2PH0dk8E6/view?usp=drive_link" target="_blank" rel="noopener" class="cert"><span class="cert-icon">🧪</span><div><div class="cert-name">Manual Testing Certificate</div><div class="cert-sub">QAcart · View PDF ↗</div></div></a>
+            <a href="https://drive.google.com/file/d/1mKXRRoGNSaPxK1tJuQ3xp3yA53rt2kiH/view?usp=drive_link" target="_blank" rel="noopener" class="cert"><span class="cert-icon">🔌</span><div><div class="cert-name">API Testing Certificate</div><div class="cert-sub">QAcart · View PDF ↗</div></div></a>
+            <div class="cert"><span class="cert-icon">☕</span><div><div class="cert-name">Java, JavaScript and Python Certificates (QAcart)</div><div class="cert-sub">QAcart</div></div></div>
           </div>
         </div>
       </div>
-
-      <!-- RIGHT COLUMN: Languages + Strengths -->
       <div class="reveal" style="transition-delay:0.15s">
-        <div class="chips-title" style="margin-bottom:20px">Languages</div>
-        <div class="lang-badges">
-          <div class="lang-badge">
-            <span class="lang-flag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ea-1f1ec.svg" alt="EG"></span>
-            <div style="flex:1">
-              <div class="lang-name">Arabic</div>
-              <div style="font-size:0.75rem;color:var(--muted)">Native language</div>
-            </div>
-            <span class="lang-level lang-native">Native</span>
+        <p class="sub-heading">Languages</p>
+        <div class="langs">
+          <div class="lang">
+            <span class="lang-flag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ea-1f1ec.svg" alt="Egypt"></span>
+            <div><div class="lang-name">Arabic</div><div class="lang-sub">Native language</div></div>
+            <span class="lang-badge badge-native">Native</span>
           </div>
-          <div class="lang-badge">
-            <span class="lang-flag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ec-1f1e7.svg" alt="GB"></span>
-            <div style="flex:1">
-              <div class="lang-name">English</div>
-              <div style="font-size:0.75rem;color:var(--muted)">Professional Working Proficiency</div>
-            </div>
-            <span class="lang-level lang-intermediate">Intermediate</span>
+          <div class="lang">
+            <span class="lang-flag"><img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f1ec-1f1e7.svg" alt="UK"></span>
+            <div><div class="lang-name">English</div><div class="lang-sub">Professional Working Proficiency</div></div>
+            <span class="lang-badge badge-inter">Intermediate</span>
           </div>
         </div>
-        <div style="margin-top:32px">
-          <div class="chips-title" style="margin-bottom:16px">Personal Strengths</div>
-          <div class="chips">
-            <span class="chip">Problem Solving</span>
-            <span class="chip">Attention to Detail</span>
-            <span class="chip">Team Collaboration</span>
-            <span class="chip">Fast Learner</span>
-            <span class="chip">Adaptable</span>
-            <span class="chip">Analytical Thinking</span>
-          </div>
+        <p class="sub-heading" style="margin-top:28px">Personal Strengths</p>
+        <div class="strengths">
+          <span class="str-pill">Problem Solving</span>
+          <span class="str-pill">Attention to Detail</span>
+          <span class="str-pill">Team Collaboration</span>
+          <span class="str-pill">Fast Learner</span>
+          <span class="str-pill">Adaptable</span>
+          <span class="str-pill">Analytical Thinking</span>
+          <span class="str-pill">Strong Communication</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
-  <div class="section-wrap">
-    <div class="section-badge">Get in Touch</div>
-    <h2 class="section-title">Let's <span>Connect</span></h2>
-    <div class="contact-grid">
-      <div class="reveal from-left">
-        <a class="contact-card" href="mailto:mohamedmagddyy111@gmail.com">
-          <div class="contact-icon blue">📧</div>
-          <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">mohamedmagddyy111@gmail.com</div>
-          </div>
-        </a>
-        <a class="contact-card" href="tel:+201064083048">
-          <div class="contact-icon pink">📱</div>
-          <div>
-            <div class="contact-label">Phone</div>
-            <div class="contact-value">+20-106-408-3048</div>
-          </div>
-        </a>
-        <div class="contact-card">
-          <div class="contact-icon cyan">📍</div>
-          <div>
-            <div class="contact-label">Location</div>
-            <div class="contact-value">Cairo, Egypt</div>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-icon amber">💼</div>
-          <div>
-            <div class="contact-label">Availability</div>
-            <div class="contact-value">Open to Full Time &amp; Remote</div>
-          </div>
-        </div>
+  <div class="wrap">
+    <div class="sec-label">Get in Touch</div>
+    <h2 class="sec-title">Let's <em>Connect</em></h2>
+    <div class="contact-layout">
+      <div class="contact-cards reveal">
+        <a class="ccard" href="mailto:mohamedmagddyy111@gmail.com"><div class="ccard-icon">📧</div><div><div class="ccard-label">Email</div><div class="ccard-val">mohamedmagddyy111@gmail.com</div></div></a>
+        <a class="ccard" href="tel:+201064083048"><div class="ccard-icon">📱</div><div><div class="ccard-label">Phone</div><div class="ccard-val">+20-106-408-3048</div></div></a>
+        <a class="ccard" href="https://www.linkedin.com/in/mohamed-magddyy111" target="_blank" rel="noopener"><div class="ccard-icon">💼</div><div><div class="ccard-label">LinkedIn</div><div class="ccard-val">linkedin.com/in/mohamed-magddyy111 ↗</div></div></a>
+        <a class="ccard" href="https://github.com/mohamedmagddyy" target="_blank" rel="noopener"><div class="ccard-icon">🐙</div><div><div class="ccard-label">GitHub</div><div class="ccard-val">github.com/mohamedmagddyy ↗</div></div></a>
+        <div class="ccard"><div class="ccard-icon">📍</div><div><div class="ccard-label">Location</div><div class="ccard-val">Cairo, Egypt</div></div></div>
+        <div class="ccard"><div class="ccard-icon">✅</div><div><div class="ccard-label">Availability</div><div class="ccard-val">Open to Full Time &amp; Remote</div></div></div>
       </div>
-      <div class="contact-avatar-wrap reveal from-right">
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="ripple"></div>
-        <div class="contact-avatar">MM</div>
+      <div class="contact-info-box reveal" style="transition-delay:0.15s">
+        <div class="cib-name">Mohamed Magdy</div>
+        <div class="cib-role">Software QC Engineer · Cairo, Egypt</div>
+        <div class="cib-line"></div>
+        <div class="cib-rows">
+          <div class="cib-row"><span class="cib-key">Status</span><span class="cib-val">Open to New Opportunities</span></div>
+          <div class="cib-row"><span class="cib-key">Focus</span><span class="cib-val">Manual · API · Mobile Testing</span></div>
+          <div class="cib-row"><span class="cib-key">Cert</span><span class="cib-val">ISTQB CTFL v4 — ID: 251223045</span></div>
+          <div class="cib-row"><span class="cib-key">Experience</span><span class="cib-val">1+ Year · 9+ Projects · 100+ Bugs</span></div>
+          <div class="cib-row"><span class="cib-key">Tools</span><span class="cib-val">Postman · Selenium · Jira · JMeter</span></div>
+          <div class="cib-row"><span class="cib-key">Automation</span><span class="cib-val">Selenium + Java · TestNG · Cucumber · Allure</span></div>
+          <div class="cib-row"><span class="cib-key">Languages</span><span class="cib-val">Arabic (Native) · English (Intermediate)</span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <p>Designed &amp; Developed with ✦ by <span>Mohamed Magdy</span> · Software QC Engineer · Cairo, Egypt</p>
+  <p>© 2026 <span>Mohamed Magdy</span> · Software QC Engineer</p>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/mohamed-magddyy111" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://github.com/mohamedmagddyy" target="_blank" rel="noopener">GitHub ↗</a>
+    <a href="mailto:mohamedmagddyy111@gmail.com">Email ↗</a>
+  </div>
 </footer>
 
 <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => { document.getElementById('loader').classList.add('hidden'); }, 2200);
-  });
-
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-  function animCursor(){
-    dot.style.left=mx+'px'; dot.style.top=my+'px';
-    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(animCursor);
-  }
-  animCursor();
-
-  const canvas = document.getElementById('particle-canvas');
-  const ctx = canvas.getContext('2d');
-  let W,H,particles=[];
-  const COLORS=['#4f46e5','#ec4899','#06b6d4','#f59e0b','#818cf8'];
-  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
-  resize(); window.addEventListener('resize',resize);
-  function Particle(){
-    this.x=Math.random()*W; this.y=Math.random()*H;
-    this.vx=(Math.random()-0.5)*0.5; this.vy=(Math.random()-0.5)*0.5;
-    this.r=Math.random()*2+1;
-    this.color=COLORS[Math.floor(Math.random()*COLORS.length)];
-  }
-  for(let i=0;i<90;i++) particles.push(new Particle());
-  function drawParticles(){
-    ctx.clearRect(0,0,W,H);
-    for(let i=0;i<particles.length;i++){
-      const p=particles[i];
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
-      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.color; ctx.fill();
-      for(let j=i+1;j<particles.length;j++){
-        const q=particles[j];
-        const dx=p.x-q.x, dy=p.y-q.y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d<130){
-          ctx.beginPath();
-          ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y);
-          ctx.strokeStyle=p.color+(Math.floor((1-d/130)*60).toString(16).padStart(2,'0'));
-          ctx.lineWidth=0.6; ctx.stroke();
-        }
-      }
-    }
-    requestAnimationFrame(drawParticles);
-  }
-  drawParticles();
-
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if(e.isIntersecting){
+      if (e.isIntersecting) {
         e.target.classList.add('visible');
-        e.target.querySelectorAll('.skill-fill').forEach(bar => {
-          bar.style.width = bar.dataset.pct + '%';
-        });
+        e.target.querySelectorAll('.skill-fill').forEach(b => b.style.width = b.dataset.pct + '%');
       }
     });
-  },{threshold:0.12});
-  revealEls.forEach(el => observer.observe(el));
-
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   document.querySelectorAll('.skill-fill').forEach(bar => {
-    new IntersectionObserver((entries) => {
-      if(entries[0].isIntersecting) bar.style.width = bar.dataset.pct + '%';
-    },{threshold:0.1}).observe(bar);
+    new IntersectionObserver(e => {
+      if (e[0].isIntersecting) bar.style.width = bar.dataset.pct + '%';
+    }, { threshold: 0.1 }).observe(bar);
   });
 </script>
 </body>
